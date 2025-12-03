@@ -1,6 +1,3 @@
-//Dev\eol-fortress\.gitignore
-
-echo ".env" >> .gitignore
 # === ENVIRONMENT ===
 .env*
 !.env.example
