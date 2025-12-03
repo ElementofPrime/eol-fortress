@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "ndestates.grok-integration",
+    "esbenp.prettier-vscode",
+    "ms-vscode-remote.remote-wsl",
+    "dbaeumer.vscode-eslint",
+    "ms-azuretools.vscode-containers",
+    "davidanson.vscode-markdownlint",
+    "ms-edgedevtools.vscode-edge-devtools",
+    "christian-kohler.npm-intellisense",
+    "ex-codes.pine-script-syntax-highlighter",
+    "tradesdontlie.pinescript-v6-vscode",
+    "prisma.prisma",
+    "bradlc.vscode-tailwindcss",
+    "rangav.vscode-thunder-client",
+    "github.copilot",
+    "ms-azuretools.vscode-docker",
+    "docker.docker"
+  ]
+}
