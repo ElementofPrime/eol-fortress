@@ -1,3 +1,5 @@
+//Dev\eol-fortress\.gitignore
+
 echo ".env" >> .gitignore
 # === ENVIRONMENT ===
 .env*
@@ -52,4 +54,4 @@ coverage/
 *.rej
 
 # === LOCAL DEV OVERRIDES (optional but safe) ===
-*.local
+*.local.env
