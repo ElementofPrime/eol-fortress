@@ -40,9 +40,11 @@ MUST pass the following gates derived from the EOL Constitution:
 - Lint/Format/Commits: ESLint clean; Prettier formatted; Conventional Commits message.
 - Simplicity: YAGNI enforced; if complexity added, complete "Complexity Tracking" table below.
 - Silent Profitability: state monetization/value hypothesis + at least one measurable metric.
+- Prime‑eBay Marketplace & API Discipline: for eBay automation, comply with eBay policies and rate limits, use sandbox-first flows, and design safe, reversible bulk operations.
 - Prime UX Contract: greet by name; structured steps; end with a clear next step; no profanity.
 - Metaphors & Integration: Fortress containment for external apps; integrate Tree of Life and Prime Pulse when applicable (or mark N/A with rationale).
 - Definition of Done: npm run lint, npm run typecheck, npm run build succeed.
+
 
 ## Constitution Cross-References
 
