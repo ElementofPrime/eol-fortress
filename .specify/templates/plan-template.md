@@ -29,7 +29,7 @@
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 MUST pass the following gates derived from the EOL Constitution:
 
@@ -44,7 +44,6 @@ MUST pass the following gates derived from the EOL Constitution:
 - Prime UX Contract: greet by name; structured steps; end with a clear next step; no profanity.
 - Metaphors & Integration: Fortress containment for external apps; integrate Tree of Life and Prime Pulse when applicable (or mark N/A with rationale).
 - Definition of Done: npm run lint, npm run typecheck, npm run build succeed.
-
 
 ## Constitution Cross-References
 
@@ -72,6 +71,7 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
+
 <!--
   ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
   for this feature. Delete unused options and expand the chosen structure with
@@ -122,7 +122,7 @@ directories captured above]
 
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| Violation                  | Why Needed         | Simpler Alternative Rejected Because |
+| -------------------------- | ------------------ | ------------------------------------ |
+| [e.g., 4th project]        | [current need]     | [why 3 projects insufficient]        |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient]  |

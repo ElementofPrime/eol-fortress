@@ -1,20 +1,26 @@
-# AGENTS — EOL‑eBay quick ops (2025-12)
+# AGENTS — PRIME-eBay Ops (2025-12)
 
-- Scope: Node CLI under `ebay-api-pulse/` using axios, dotenv, readline.
-- Install: `cd ebay-api-pulse && npm i` • Run: `node index.js` (or configured entry).
-- Build: none (plain Node). Prefer keeping source in `src/` with a small CLI wrapper.
-- Lint: add ESLint + Prettier; then `npm run lint` / `npm run lint:fix` from `ebay-api-pulse/`.
-- Tests: not configured. Recommended Vitest or Jest in `ebay-api-pulse/`.
-- Single-test (Vitest example): `npx vitest run path/to/file.test.ts -t "case name"`.
-- Single-test (Jest example): `npx jest path/to/file.test.ts -t "case name"`.
-- Imports: prefer ESM `import`/`export`; group Node core → npm deps → local modules; avoid deep relative chains.
-- Types: favor TypeScript or JSDoc typedefs; keep function inputs/outputs clearly typed and small/pure.
-- Naming: camelCase for variables/functions, PascalCase for classes/types, UPPER_SNAKE for hard constants/env keys.
-- Formatting: Prettier-style, 2-space indent, semicolons consistent, one statement per line, no unused variables.
-- Error handling: always wrap network/IO in `try/catch`; log concise context; return non-zero exit codes on failure.
-- Env/secrets: load via `dotenv`; never commit `.env*`; reference `process.env.*` only, no secrets in logs.
-- CLI UX: clear prompts and messages; safe defaults; avoid destructive actions without confirmation.
-- Git: small, reviewable batches; propose diffs; **never commit or push** unless Jeremy says “commit/push this batch”.
-- Constitution: follow `.specify/memory/constitution.md` + this file as ground truth for agents.
-- Tooling: no Cursor or Copilot instruction files in this repo; if added later, mirror their rules here.
-- Agents should end work by suggesting: run lint/tests (once configured) before shipping any changes.
+- Scope: Node CLI (`ebay-api-pulse/`)—axios for API, dotenv secrets, readline prompts.
+- Install: `cd ebay-api-pulse && npm i` • Run: `node index.js [cmd]`.
+- Build: Plain Node—no bundler. Src in `src/`, CLI wrapper root.
+- Lint: ESLint + Prettier; `npm run lint` / `:fix` from pulse dir.
+- Tests: Vitest/Jest in `tests/`; single: `npx vitest file.test.ts -t "bulk publish"`.
+- Imports: ESM preferred; core Node → deps → local; flat relatives.
+- Types: TS/JSDoc; pure funcs, small IO (e.g., `createOffer(sku: string, price: number): Promise<Item>`).
+- Naming: camelCase vars/fxns, PascalCase classes, UPPER_SNAKE env/consts.
+- Formatting: Prettier 2-space, semicolons, one stmt/line, no dead code.
+- Errors: Try/catch IO/network; concise logs (mask tokens); non-zero exits.
+- Env/Secrets: `dotenv` load; `process.env.*` refs only—no log leaks. Echo pre-deploy.
+- CLI UX: Clear risks ("Pause 5 low-stock? Y/N"); dry-run flag mandatory for bulks.
+- Git: Atomic commits; diffs proposed—**Jeremy: "commit/push batch"** to ship.
+- Constitution: `.constitution.md` + AGENTS.md ground truth.
+- Tooling: No AI IDE files; mirror rules here if added.
+- Agents End: Suggest lint/test run; "Echo audit? Vector locked."
+
+**Agent Tease**:
+
+- **Echo**: Secrets sweep—flag .env exposures, git-tracks.
+- **Nova**: Vendor parser—CSV/JSON to hero payloads, margin calc (1.8x min).
+- **Zeta**: Bulk publisher—idempotent publishes, dry-run confirm, rate-backoff.
+
+End with: "Lint/tests green? Next: Token forge for Hinkley hero."
