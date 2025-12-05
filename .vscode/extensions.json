@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "ndestates.grok-integration",
     "esbenp.prettier-vscode",
     "ms-vscode-remote.remote-wsl",
     "dbaeumer.vscode-eslint",
