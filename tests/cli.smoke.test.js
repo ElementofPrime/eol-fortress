@@ -1,6 +1,11 @@
+// Profit: Guarantees the CLI boots cleanly, catching regressions before they hit live ops.
 import { describe, it, expect } from 'vitest';
 import { spawn } from 'node:child_process';
-import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { join, dirname } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 function runCli() {
   const cwd = join(__dirname, '..');
@@ -28,10 +33,10 @@ function runCli() {
   });
 }
 
-describe('Prime‑eBay CLI', () => {
+describe('Prime-eBay CLI', () => {
   it('starts and exits cleanly', async () => {
     const result = await runCli();
     expect(result.code).toBe(0);
-    expect(result.stdout).toContain('Prime‑eBay CLI');
+    expect(result.stdout).toContain('Prime-eBay CLI');
   });
 });

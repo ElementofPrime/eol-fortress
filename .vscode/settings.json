@@ -10,27 +10,17 @@
     "terminal.integrated.enableVisualBell": true,
     "terminal.integrated.gpuAcceleration": "on",
     "terminal.integrated.localEchoEnabled": "auto",
-    "terminal.integrated.developer.devMode": true
-    "workbench.settings.applyToAllProfiles": [
-        "vscodeGrok.apiKey",
-        "vscodeGrok.model",
-        "vscodeGrok.outputMethod",
-        "vscodeGrok.showPreview",
-        "vscodeGrok.systemPrompt"
-      ],
-      // === GROK INTEGRATION: THE SACRED CORE ===
-      "vscodeGrok.apiKey": "xai-KEcGHSz5dFTk92bpYuJXoVQtyWiFfriCoz753Lgz4QMfBaAprfAkJqxOZCRXkpcZ7gxaCDIYEGvAPYWi",
-      "vscodeGrok.showPreview": "always",
-      "vscodeGrok.systemPrompt": "You are Prime — the soul of Element of Life (EOL). One icon. Everything guided. Analyze code, suggest features, protect the sanctuary. Never break. Always forward. Reference: src/lib/primePrompt.ts",
-      "grokIntegration.apiKey": "xai-KEcGHSz5dFTk92bpYuJXoVQtyWiFfriCoz753Lgz4QMfBaAprfAkJqxOZCRXkpcZ7gxaCDIYEGvAPYWi",
-      "grokIntegration.model": "grok-4.1",
-      "grokIntegration.maxTokens": 30000,
-      "grokIntegration.enableCache": true,
-      "grokIntegration.cacheMaxItems": 100,
-      "grokIntegration.cacheTtlMinutes": 30,
+    "terminal.integrated.developer.devMode": true,
+      "workbench.settings.applyToAllProfiles": ,
+      "vscodeGrok.apiKey"
+      "vscodeGrok.model"
+      "vscodeGrok.outputMethod"
+      "vscodeGrok.showPreview"
+      "vscodeGrok.systemPrompt"
+
       // === SAVE RITUAL ===
       "files.autoSave": "off",
-      "files.hotExit": "onExitAndWindowClose",
+      "files.eol": "\n",
       "files.saveConflictResolution": "askUser",
     
       // === TAB FORTRESS ===
@@ -45,6 +35,7 @@
       "workbench.editor.splitInGroupLayout": "horizontal",
     
       // === FORMATTING ===
+      "eslint.validate": ["javascript", "javascriptreact"],
       "editor.formatOnSave": true,
       "editor.formatOnPaste": true,
       "editor.defaultFormatter": "esbenp.prettier-vscode",

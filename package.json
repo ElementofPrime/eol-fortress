@@ -1,14 +1,24 @@
 {
   "name": "ebay-api-pulse",
   "version": "1.0.0",
-  "description": "Prime‑eBay CLI tooling for eBay API automation and experiments.",
+  "description": "Prime-eBay CLI tooling for eBay API automation and experiments.",
   "type": "module",
   "main": "index.js",
+  "bin": {
+    "prime-ebay": "index.js"
+  },
   "scripts": {
     "start": "node index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "check": "npm run lint && npm test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "keywords": [],
   "author": "",

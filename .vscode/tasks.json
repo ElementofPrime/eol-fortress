@@ -1,9 +1,24 @@
+// .vscode/tasks.json
 {
   "version": "2.0.0",
   "tasks": [
-    { "label": "Type Check", "type": "shell", "command": "pnpm tsc --noEmit", "group": "test" },
-    { "label": "Lint", "type": "shell", "command": "pnpm lint", "group": "test" },
-    { "label": "Dev", "type": "shell", "command": "pnpm dev", "problemMatcher": [] },
-    { "label": "Prime Verify", "type": "shell", "command": "node scripts/prime-health.mjs" }
+    {
+      "label": "Lint",
+      "type": "shell",
+      "command": "npm run lint",
+      "group": "test"
+    },
+    {
+      "label": "Test",
+      "type": "shell",
+      "command": "npm test",
+      "group": "test"
+    },
+    {
+      "label": "Check (lint+test)",
+      "type": "shell",
+      "command": "npm run check",
+      "group": "test"
+    }
   ]
 }
