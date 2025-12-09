@@ -30,14 +30,7 @@
   },
 
   "share": "manual",
-  "instructions": [
-    "README.md",
-    "AGENTS.md",
-    ".specify/memory/constitution.md",
-    ".specify/templates/**/*.md",
-    "CONTRIBUTING.md",
-    ".github/**/*.md",
-  ],
+  "instructions": ["README.md", "AGENTS.md", "CONTRIBUTING.md", ".github/**/*.md"],
 
   "tui": {
     "scroll_speed": 3,
