@@ -1,4 +1,4 @@
-// src/cli.js
+// ebay-api-fortress/src/cli.js
 // Profit: Creates a stable CLI shell that can host multiple money-making commands without rewrites.
 import readline from 'readline';
 import { getRuntimeEnv } from './config/env.js';

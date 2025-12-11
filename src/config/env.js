@@ -1,4 +1,4 @@
-// src/config/env.js
+// ebay-api-fortress/src/config/env.js
 // Profit: Centralizes env validation so bad config fails fast instead of corrupting eBay ops.
 import 'dotenv/config';
 

@@ -14,7 +14,7 @@ EOL-fueled eBay fortress: Node CLI for silent automation—bulk listings, vendor
 
 | Step      | Command/Action                                                     | Edge                              |
 | --------- | ------------------------------------------------------------------ | --------------------------------- |
-| Setup     | `cd ebay-api-pulse && npm i`                                       | Axios + dotenv locked.            |
+| Setup     | `cd ebay-api-fortress && npm i`                                    | Axios + dotenv locked.            |
 | Keys      | `cp .env.example .env` → Edit EBAY\_\* (sandbox first).            | Dev portal sync—redirect URI set? |
 | Token     | `node getToken.js` → Browser auth, paste redirect.                 | Access gold for heroes.           |
 | Hero Test | `node createItem.js` (paste token) → Hinkley path live in sandbox. | Dry-run publish next.             |
