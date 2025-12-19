@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Prime Tunnel API
+  version: 0.1.0
+  description: Secure tunnel API to read repo status/logs/files and (optionally) run allowlisted commands.
+servers:
+  - url: https://after-income-bookmark-bizrate.trycloudflare.com
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+security:
+  - bearerAuth: []
+
+paths:
+  /health:
+    get:
+      summary: Health check (no auth required by server, but fine if sent)
+      responses:
+        '200':
+          description: Health JSON
+
+  /git/status:
+    get:
+      summary: Get git status porcelain
+      responses:
+        '200':
+          description: Git status result
+
+  /logs/tail:
+    get:
+      summary: Tail a log file (default .tunnel/terminal_prime.log)
+      parameters:
+        - in: query
+          name: path
+          required: false
+          schema: { type: string }
+        - in: query
+          name: n
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 5000 }
+      responses:
+        '200':
+          description: Tail results
+
+  /file/read:
+    post:
+      summary: Read file line range within repo root
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [path]
+              properties:
+                path: { type: string }
+                startLine: { type: integer, minimum: 1 }
+                endLine: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: File content with metadata
+
+  /exec:
+    post:
+      summary: Run allowlisted command (disabled unless ALLOW_EXEC=1)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [cmd]
+              properties:
+                cmd: { type: string }
+                args:
+                  type: array
+                  items: { type: string }
+                cwdRel: { type: string }
+      responses:
+        '200':
+          description: Exec result
