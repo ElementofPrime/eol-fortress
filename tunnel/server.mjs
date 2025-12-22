@@ -155,7 +155,8 @@ const server = http.createServer(async (req, res) => {
     if (!authOk(req)) return json(res, 401, { ok: false, error: 'Unauthorized' });
 
     if (method === 'GET' && url.pathname === '/git/status') {
-      const r = await run('git', ['status', '--porcelain=v1', '-b'], REPO_ROOT);
+      const r = await run("/usr/bin/git", ["status", "--porcelain=v1", "-b"], REPO_ROOT);
+
       return json(res, 200, r);
     }
 
