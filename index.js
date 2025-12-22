@@ -14,15 +14,15 @@ async function main() {
 
 main();
 
-import Fastify from "fastify";
-import { gitRoutes } from "./src/routes/git.js";
+import Fastify from 'fastify';
+import { gitRoutes } from './src/routes/git.js';
 
 const app = Fastify({ logger: true });
 
 // Base health check route
-app.get("/health", async () => ({
+app.get('/health', async () => ({
   ok: true,
-  service: "Prime-eBay CLI Fortress",
+  service: 'Prime-eBay CLI Fortress',
   uptime: process.uptime(),
 }));
 
@@ -30,10 +30,10 @@ app.get("/health", async () => ({
 app.register(gitRoutes);
 
 // Start the server
-app.listen({ port: 8787, host: "127.0.0.1" })
+app
+  .listen({ port: 8787, host: '127.0.0.1' })
   .then((address) => console.log(`✅ Fortress API running at ${address}`))
   .catch((err) => {
     console.error(err);
     process.exit(1);
   });
-

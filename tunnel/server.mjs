@@ -75,37 +75,41 @@ function run(cmd, args, cwdAbs) {
         ok: false,
         code: -1,
         signal: null,
-        stdout: "",
+        stdout: '',
         stderr: String(err?.message || err),
         stdout_truncated: false,
         stderr_truncated: false,
       });
     }
 
-    let stdout = "";
-    let stderr = "";
+    let stdout = '';
+    let stderr = '';
 
     const killTimer = setTimeoutFn(() => {
-      try { child.kill("SIGKILL"); } catch { /* ignore */ }
+      try {
+        child.kill('SIGKILL');
+      } catch {
+        /* ignore */
+      }
     }, EXEC_TIMEOUT_MS);
 
-    child.on("error", (err) => {
+    child.on('error', (err) => {
       clearTimeoutFn(killTimer);
       finish({
         ok: false,
         code: -1,
         signal: null,
-        stdout: "",
+        stdout: '',
         stderr: String(err?.message || err),
         stdout_truncated: false,
         stderr_truncated: false,
       });
     });
 
-    child.stdout.on("data", (d) => (stdout += d.toString("utf8")));
-    child.stderr.on("data", (d) => (stderr += d.toString("utf8")));
+    child.stdout.on('data', (d) => (stdout += d.toString('utf8')));
+    child.stderr.on('data', (d) => (stderr += d.toString('utf8')));
 
-    child.on("close", (code, signal) => {
+    child.on('close', (code, signal) => {
       clearTimeoutFn(killTimer);
       const out = truncate(stdout);
       const err = truncate(stderr);
@@ -155,7 +159,7 @@ const server = http.createServer(async (req, res) => {
     if (!authOk(req)) return json(res, 401, { ok: false, error: 'Unauthorized' });
 
     if (method === 'GET' && url.pathname === '/git/status') {
-      const r = await run("/usr/bin/git", ["status", "--porcelain=v1", "-b"], REPO_ROOT);
+      const r = await run('/usr/bin/git', ['status', '--porcelain=v1', '-b'], REPO_ROOT);
 
       return json(res, 200, r);
     }
