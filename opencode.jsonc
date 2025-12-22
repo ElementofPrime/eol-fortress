@@ -1,0 +1,149 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "model": "openai/gpt-5.1",
+  "small_model": "openai/gpt-5-mini",
+
+  "theme": "opencode",
+  "autoupdate": true,
+  "share": "manual",
+  // Global tools available (agents can narrow these)
+  "tools": {
+    "write": true,
+    "edit": true,
+    "patch": true,
+    "bash": true,
+    "read": true,
+    "glob": true,
+    "grep": true,
+    "list": true,
+    "webfetch": true,
+  },
+
+  // Permissions: which tools can act without asking
+  // NOTE: 'write' is NOT allowed here by schema, so we leave it out.
+  "permission": {
+    "edit": "allow",
+    "bash": "allow",
+    "webfetch": "allow",
+  },
+
+  "instructions": [
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    ".github/**/*.md",
+    "ebay-api-fortress/README.md",
+  ],
+
+  "tui": {
+    "scroll_speed": 3,
+    "scroll_acceleration": { "enabled": true },
+  },
+
+  "formatter": {
+    "prettier": { "disabled": false },
+  },
+
+  "provider": {
+    "openai": {
+      "options": {
+        // Uses OPENAI_API_KEY from your WSL env
+      },
+    },
+    "xai": {
+      "options": {
+        "apiKey": "{env:XAI_API_KEY}",
+      },
+    },
+  },
+
+  // 🚀 Terminal Prime — main architect / strategist
+  "agent": {
+    "prime": {
+      "description": "Prime — Jeremy’s main EOL architect & strategist (Terminal Prime).",
+      "mode": "primary",
+      "model": "openai/gpt-5.1",
+      "temperature": 0.3,
+      "prompt": "{file:./prompts/prime.txt}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "patch": true,
+        "bash": true,
+        "read": true,
+        "glob": true,
+        "grep": true,
+        "list": true,
+        "webfetch": true,
+      },
+    },
+    // 🛠 Prime Builder — code implementation engine
+    "build": {
+      "description": "Prime Builder — implementation and refactor engine (code-first, spec-aligned).",
+      "mode": "primary",
+      "model": "openai/gpt-5.1-codex",
+      "temperature": 0.2,
+      "prompt": "{file:./prompts/build.txt}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "patch": true,
+        "bash": true,
+        "read": true,
+        "glob": true,
+        "grep": true,
+        "list": true,
+        "webfetch": true,
+      },
+    },
+    // 🧪 Prime Reviewer — slow, picky code review
+    "plan": {
+      "description": "Plan — spec/plan/tasks orchestrator, tightly integrated with Spec Kit.",
+      "mode": "primary",
+      "model": "xai/grok-4",
+      "temperature": 0.3,
+      "prompt": "{file:./prompts/plan.txt}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "patch": false,
+        "bash": false,
+        "read": true,
+        "glob": true,
+        "grep": true,
+        "list": true,
+      },
+    },
+    // 🐞 Prime Debugger — error/stack-trace killer
+    "debug": {
+      "description": "Debug — diagnosis + minimal-diff fixes for bugs, test failures, and weird behavior.",
+      "mode": "primary",
+      "model": "openai/gpt-5.1-codex-mini",
+      "temperature": 0.2,
+      "prompt": "{file:./prompts/debug.txt}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "patch": true,
+        "bash": false,
+        "read": true,
+        "glob": true,
+        "grep": true,
+        "list": true,
+      },
+    },
+  },
+  // 🌐 Bright Data MCP — live web search engine
+  "mcp": {
+    "brightData": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "@brightdata/mcp"],
+      "environment": {
+        "API_TOKEN": "{env:API_TOKEN}",
+        // "PRO_MODE": "true" // Enable if/when you want paid Pro crawling
+      },
+      "timeout": 10000,
+    },
+  },
+}
