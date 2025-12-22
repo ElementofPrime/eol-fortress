@@ -1,6 +1,6 @@
 // Profit: Ensures margin math stays honest as we evolve pricing tricks.
 import { describe, it, expect } from 'vitest';
-import { computeMargin, MARGIN_DEFAULTS } from '../ebay-api-fortress/src/lib/margin.js';
+import { computeMargin, MARGIN_DEFAULTS } from '../src/lib/margin.js';
 
 describe('computeMargin', () => {
   it('uses default feesPct when none is provided', () => {

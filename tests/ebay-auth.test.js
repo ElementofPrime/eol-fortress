@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import axios from 'axios';
-import { createEbayClient, fetchAccessToken } from '../ebay-api-fortress/src/lib/ebay-auth.js';
+import { createEbayClient, fetchAccessToken } from '../src/lib/ebay-auth.js';
 
 vi.mock('axios', () => {
   const post = vi.fn();

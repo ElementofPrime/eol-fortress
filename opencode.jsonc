@@ -28,12 +28,7 @@
     "webfetch": "allow",
   },
 
-  "instructions": [
-    "AGENTS.md",
-    "CONTRIBUTING.md",
-    ".github/**/*.md",
-    "ebay-api-fortress/README.md",
-  ],
+  "instructions": ["AGENTS.md", "CONTRIBUTING.md", ".github/**/*.md", "README.md"],
 
   "tui": {
     "scroll_speed": 3,
