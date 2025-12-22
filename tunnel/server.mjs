@@ -23,7 +23,7 @@ loadEnvFile(path.resolve(process.cwd(), '.env.tunnel'));
 
 const PORT = Number(process.env.TUNNEL_PORT || 8787);
 const TOKEN = String(process.env.TUNNEL_TOKEN || '');
-const REPO_ROOT = path.resolve(process.env.REPO_ROOT || '/fortress/ebay-api-fortress');
+const REPO_ROOT = path.resolve(process.env.REPO_ROOT || '/mnt/d/Dev/ebay-api-fortress');
 const ALLOW_EXEC = String(process.env.ALLOW_EXEC || '0') === '1';
 const EXEC_TIMEOUT_MS = Number(process.env.EXEC_TIMEOUT_MS || 40000);
 const MAX_OUTPUT_CHARS = Number(process.env.MAX_OUTPUT_CHARS || 50000);
