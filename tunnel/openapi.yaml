@@ -1,10 +1,10 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Prime Tunnel API
-  version: 0.1.0
+  version: 0.2.0
   description: Secure tunnel API to read repo status/logs/files and (optionally) run allowlisted commands.
 servers:
-  - url: https://after-income-bookmark-bizrate.trycloudflare.com
+  - url: https://origin-checked-shuttle-genuine.trycloudflare.com
 
 components:
   securitySchemes:
@@ -12,27 +12,119 @@ components:
       type: http
       scheme: bearer
 
-security:
-  - bearerAuth: []
+  schemas:
+    HealthResponse:
+      type: object
+      required: [ok, time, repoRoot, allowExec]
+      properties:
+        ok: { type: boolean }
+        time: { type: string }
+        repoRoot: { type: string }
+        allowExec: { type: boolean }
+
+    GitStatusResponse:
+      type: object
+      required: [ok, code, signal, stdout, stderr, stdout_truncated, stderr_truncated]
+      properties:
+        ok: { type: boolean }
+        code: { type: integer }
+        signal: { type: ['string', 'null'] }
+        stdout: { type: string }
+        stderr: { type: string }
+        stdout_truncated: { type: boolean }
+        stderr_truncated: { type: boolean }
+
+    LogsTailResponse:
+      type: object
+      required: [ok, path, lines]
+      properties:
+        ok: { type: boolean }
+        path: { type: string }
+        lines:
+          type: array
+          items: { type: string }
+
+    FileReadRequest:
+      type: object
+      required: [path]
+      properties:
+        path: { type: string }
+        startLine: { type: integer, minimum: 1 }
+        endLine: { type: integer, minimum: 1 }
+
+    FileReadResponse:
+      type: object
+      required: [ok, path, startLine, endLine, content, totalLines]
+      properties:
+        ok: { type: boolean }
+        path: { type: string }
+        startLine: { type: integer }
+        endLine: { type: integer }
+        content: { type: string }
+        totalLines: { type: integer }
+
+    ExecRequest:
+      type: object
+      required: [cmd]
+      properties:
+        cmd: { type: string }
+        args:
+          type: array
+          items: { type: string }
+        cwdRel: { type: string }
+
+    ExecResponse:
+      type: object
+      required:
+        [ok, code, signal, stdout, stderr, stdout_truncated, stderr_truncated, cmd, args, cwdRel]
+      properties:
+        ok: { type: boolean }
+        code: { type: integer }
+        signal: { type: ['string', 'null'] }
+        stdout: { type: string }
+        stderr: { type: string }
+        stdout_truncated: { type: boolean }
+        stderr_truncated: { type: boolean }
+        cmd: { type: string }
+        args:
+          type: array
+          items: { type: string }
+        cwdRel: { type: string }
 
 paths:
   /health:
     get:
-      summary: Health check (no auth required by server, but fine if sent)
+      operationId: primeTunnelHealth
+      summary: Health check
+      security: [] # no auth
       responses:
         '200':
           description: Health JSON
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
 
   /git/status:
     get:
+      operationId: primeTunnelGitStatus
       summary: Get git status porcelain
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Git status result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitStatusResponse'
 
   /logs/tail:
     get:
+      operationId: primeTunnelLogsTail
       summary: Tail a log file (default .tunnel/terminal_prime.log)
+      security:
+        - bearerAuth: []
       parameters:
         - in: query
           name: path
@@ -45,41 +137,47 @@ paths:
       responses:
         '200':
           description: Tail results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsTailResponse'
 
   /file/read:
     post:
+      operationId: primeTunnelFileRead
       summary: Read file line range within repo root
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required: [path]
-              properties:
-                path: { type: string }
-                startLine: { type: integer, minimum: 1 }
-                endLine: { type: integer, minimum: 1 }
+              $ref: '#/components/schemas/FileReadRequest'
       responses:
         '200':
           description: File content with metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileReadResponse'
 
   /exec:
     post:
+      operationId: primeTunnelExec
       summary: Run allowlisted command (disabled unless ALLOW_EXEC=1)
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required: [cmd]
-              properties:
-                cmd: { type: string }
-                args:
-                  type: array
-                  items: { type: string }
-                cwdRel: { type: string }
+              $ref: '#/components/schemas/ExecRequest'
       responses:
         '200':
           description: Exec result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecResponse'
