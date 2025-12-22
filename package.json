@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "start:dev": "ts-node index.ts",
+    "api": "ts-node src/server.ts",
     "build": "tsc",
     "dev": "nodemon index.ts",
     "lint": "eslint .",
