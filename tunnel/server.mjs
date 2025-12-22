@@ -60,20 +60,56 @@ function truncate(s) {
 
 function run(cmd, args, cwdAbs) {
   return new Promise((resolve) => {
-    const child = spawn(cmd, args, { cwd: cwdAbs, shell: false });
-    let stdout = '';
-    let stderr = '';
+    let settled = false;
+    const finish = (obj) => {
+      if (settled) return;
+      settled = true;
+      resolve(obj);
+    };
 
-    const killTimer = setTimeoutFn(() => child.kill('SIGKILL'), EXEC_TIMEOUT_MS);
+    let child;
+    try {
+      child = spawn(cmd, args, { cwd: cwdAbs, shell: false });
+    } catch (err) {
+      return finish({
+        ok: false,
+        code: -1,
+        signal: null,
+        stdout: "",
+        stderr: String(err?.message || err),
+        stdout_truncated: false,
+        stderr_truncated: false,
+      });
+    }
 
-    child.stdout.on('data', (d) => (stdout += d.toString('utf8')));
-    child.stderr.on('data', (d) => (stderr += d.toString('utf8')));
+    let stdout = "";
+    let stderr = "";
 
-    child.on('close', (code, signal) => {
+    const killTimer = setTimeoutFn(() => {
+      try { child.kill("SIGKILL"); } catch { /* ignore */ }
+    }, EXEC_TIMEOUT_MS);
+
+    child.on("error", (err) => {
+      clearTimeoutFn(killTimer);
+      finish({
+        ok: false,
+        code: -1,
+        signal: null,
+        stdout: "",
+        stderr: String(err?.message || err),
+        stdout_truncated: false,
+        stderr_truncated: false,
+      });
+    });
+
+    child.stdout.on("data", (d) => (stdout += d.toString("utf8")));
+    child.stderr.on("data", (d) => (stderr += d.toString("utf8")));
+
+    child.on("close", (code, signal) => {
       clearTimeoutFn(killTimer);
       const out = truncate(stdout);
       const err = truncate(stderr);
-      resolve({
+      finish({
         ok: code === 0,
         code,
         signal,
