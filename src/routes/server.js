@@ -1,6 +1,6 @@
 // Profit vector: isolates network layer from CLI → predictable tunnel integration
 import Fastify from 'fastify';
-import { gitRoutes } from './routes/git.js';
+import { gitRoutes } from './git.js';
 
 const app = Fastify({ logger: true });
 

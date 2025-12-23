@@ -1,5 +1,4 @@
 import { execSync } from 'node:child_process';
-import { FastifyInstance } from 'fastify';
 import path from 'node:path';
 
 export async function gitRoutes(app) {
