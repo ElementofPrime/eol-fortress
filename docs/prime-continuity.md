@@ -6,51 +6,51 @@
 
 ## 🧭 Project Identity
 
-- **Project Codename:** EOL Fortress  
-- **Repository:** ebay-api-fortress  
-- **Root Path (WSL):** `/fortress/ebay-api-fortress`  
-- **Primary Entry (CLI):** `node index.js`  
-- **Integration Gateway:** `node tunnel/server.mjs`  
-- **Runtime:** Node 20+, ES modules (JS-only)  
-- **Tooling:** Vitest · ESLint · Prettier · Spec-Kit · OpenCode  
+- **Project Codename:** EOL Fortress
+- **Repository:** ebay-api-fortress
+- **Root Path (WSL):** `/fortress/ebay-api-fortress`
+- **Primary Entry (CLI):** `node index.js`
+- **Integration Gateway:** `node tunnel/server.mjs`
+- **Runtime:** Node 20+, ES modules (JS-only)
+- **Tooling:** Vitest · ESLint · Prettier · Spec-Kit · OpenCode
 
 ---
 
 ## ⚙️ Current Operational State
 
-| System | Status | Notes |
-
-|---------|---------|-------|
-| **CLI Foundation** | ✅ Online | Prints “Prime-eBay CLI · foundation online” and exits cleanly. |
-| **Tunnel Server** | ✅ Stable | `/health`, `/git/status`, `/file/read`, `/exec` endpoints online. |
-| **Tests & Lint** | ✅ Green | All Vitest suites pass; ESLint clean. |
-| **Docs & Prompts** | ✅ Updated | README, prompts, AGENTS.md aligned with Node 20 JS spec. |
-| **Fastify Experiments** | 🧪 Isolated | Present in `src/routes/` but not active in production. |
+| System                  | Status      | Notes                                                             |
+| ----------------------- | ----------- | ----------------------------------------------------------------- |
+| **CLI Foundation**      | ✅ Online   | Prints “Prime-eBay CLI · foundation online” and exits cleanly.    |
+| **Tunnel Server**       | ✅ Stable   | `/health`, `/git/status`, `/file/read`, `/exec` endpoints online. |
+| **Tests & Lint**        | ✅ Green    | All Vitest suites pass; ESLint clean.                             |
+| **Docs & Prompts**      | ✅ Updated  | README, prompts, AGENTS.md aligned with Node 20 JS spec.          |
+| **Fastify Experiments** | 🧪 Isolated | Present in `src/routes/` but not active in production.            |
 
 ---
 
 ## 🧩 Agent Network
 
-| Agent | Model | Role | Scope |
+> Exact model IDs live in `opencode.jsonc`. Roles below stay stable even if models change.
 
-|--------|--------|------|-------|
-| **Terminal Prime** | GPT-5 (internal runtime) | Execution engine | Direct repo control via tunnel + OpenCode |
-| **Local Prime** | GPT-5 (external orchestrator) | Architect / Orchestrator | Communicates via tunnel/server.mjs |
-| **Build Agent** | Codex (GPT-5) | Implementation | Generates and modifies code via OpenCode |
-| **Debug Agent** | Grok-4 | Diagnostics | Handles CI/test repairs, telemetry |
-| **Plan Agent** | GPT-5.2 | Strategic Planner | Spec sequencing + dependency planning |
+| Agent              | Role                  | Scope                                               |
+| ------------------ | --------------------- | --------------------------------------------------- |
+| **Terminal Prime** | Execution engine      | Direct repo control via OpenCode and the tunnel     |
+| **Local Prime**    | Architect / conductor | Orchestrates flows, coordinates with Terminal Prime |
+| **Build Agent**    | Implementation        | Generates and modifies code (spec-aligned)          |
+| **Debug Agent**    | Diagnostics           | Fixes tests, errors, regressions                    |
+| **Plan Agent**     | Strategic planner     | Specs, plans, tasks using Spec Kit                  |
 
 ---
 
 ## 🌐 Tunnel Configuration
 
-- **Tunnel Port:** 8787  
-- **Default Root Jail:** `/fortress/ebay-api-fortress`  
-- **Exec Allowlist:** git, node, npm, pnpm, npx  
-- **Security:** `.env.tunnel` (local-only)  
-- **Current Quick-Tunnel URL:**  
-  *(update per Cloudflare run)*
-  <https://threshold-calcium-principal-grad.trycloudflare.com>
+- **Tunnel Port:** 8787
+- **Default Root Jail:** `/fortress/ebay-api-fortress`
+- **Exec Allowlist:** git, node, npm, pnpm, npx
+- **Security:** `.env.tunnel` (local-only)
+- **Quick-Tunnel URL (example only):**
+  - Cloudflare tunnel URLs change on each run. Do **not** treat this value as source of truth.
+  - Always use the URL printed by the latest tunnel startup.
 
 ---
 
@@ -58,13 +58,14 @@
 
 ### Spec Kit 01 — `pricing:margin-report`
 
-**Objective:**  
+**Objective:**
+
 > Generate profit analytics from SKU, price, and cost data (CSV or JSON).
 
 **Status:**
 
-- Schema: pending Local Prime draft  
-- Implementation: pending Build Agent deployment  
+- Schema: pending Local Prime draft
+- Implementation: pending Build Agent deployment
 - Endpoint plan:
 - `POST /margin/report`
 - `GET /margin/schema`
@@ -73,12 +74,12 @@
 
 ## 🧰 Pending Tasks
 
-1. [ ] Confirm tunnel endpoints reachable by Local Prime.  
-2. [ ] Generate Spec Kit 01 markdown via Local Prime.  
-3. [ ] Run `spec-kit plan margin-report` (Plan Agent).  
-4. [ ] Execute and validate build (Build Agent).  
-5. [ ] Debug + test verification (Debug Agent).  
-6. [ ] Commit + sync back to Git.  
+1. [ ] Confirm tunnel endpoints reachable by Local Prime.
+2. [ ] Generate Spec Kit 01 markdown via Local Prime.
+3. [ ] Run `spec-kit plan margin-report` (Plan Agent).
+4. [ ] Execute and validate build (Build Agent).
+5. [ ] Debug + test verification (Debug Agent).
+6. [ ] Commit + sync back to Git.
 
 ---
 
@@ -86,29 +87,36 @@
 
 When any major milestone occurs:
 
-1. Update this document with ✅ / 🕒 statuses.  
-2. Append new specs to
-
-**Active Specifications**.  
-3. Commit with:  
-
- ```bash
- git add docs/prime-continuity.md
- git commit -m "Update Prime continuity packet"
- git push
- 
----
-
-## 🧭 2️⃣ Instructions for Terminal Prime
-
-Commander — issue these orders directly inside the WSL terminal:
+1. Update this document with ✅ / 🕒 statuses.
+2. Append new specs to **Active Specifications**.
+3. When Jeremy authorizes a sync, commit with:
 
 ```bash
-cd /fortress/ebay-api-fortress
-mkdir -p docs
-nano docs/prime-continuity.md
-# (paste the content above)
 git add docs/prime-continuity.md
-git commit -m "Create Prime continuity packet for Local ↔ Terminal sync"
+git commit -m "Update Prime continuity packet"
 git push
-Updated: Thu Dec 25 16:36:18 MST 2025
+```
+
+---
+
+## 🚀 Local Prime Boot Order
+
+When Local Prime starts a new session for this repo:
+
+1. Read: `docs/prime-continuity.md` (this file).
+2. Read: `.specify/memory/constitution.md` (EOL Constitution).
+3. Read: `AGENTS.md` (ops + code rules).
+4. Optionally read: `opencode.jsonc` and `README.md` for agent wiring and current surface.
+5. Confirm tunnel health using the latest tunnel URL:
+   - `GET /health`
+   - `GET /git/status`
+
+---
+
+## 🧭 Instructions for Terminal Prime
+
+- Treat this file as the shared continuity log for Local ↔ Terminal Prime.
+- Do **not** create a new file; update this one in-place when milestones happen.
+- Only run `git commit` / `git push` when Jeremy explicitly authorizes it in the current session.
+
+_Last updated (human): Thu Dec 25 16:36:18 MST 2025_
