@@ -1,4 +1,6 @@
 /* eslint-env node */
+// profit vector: prevents unauthorized repo control through unified tunnel key; zero downtime auth enforcement.
+
 import { setTimeout as setTimeoutFn, clearTimeout as clearTimeoutFn } from 'node:timers';
 import http from 'node:http';
 import { spawn } from 'node:child_process';
@@ -6,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { URL } from 'node:url';
 
+// --- Load environment ---
 function loadEnvFile(p) {
   if (!fs.existsSync(p)) return;
   const txt = fs.readFileSync(p, 'utf8');
@@ -21,18 +24,22 @@ function loadEnvFile(p) {
 
 loadEnvFile(path.resolve(process.cwd(), '.env.tunnel'));
 
+// --- Core Config ---
 const PORT = Number(process.env.TUNNEL_PORT || 8787);
-const TOKEN = String(process.env.TUNNEL_TOKEN || '');
 const REPO_ROOT = path.resolve(process.env.REPO_ROOT || '/mnt/d/Dev/ebay-api-fortress');
 const ALLOW_EXEC = String(process.env.ALLOW_EXEC || '0') === '1';
 const EXEC_TIMEOUT_MS = Number(process.env.EXEC_TIMEOUT_MS || 40000);
 const MAX_OUTPUT_CHARS = Number(process.env.MAX_OUTPUT_CHARS || 50000);
 
-if (!TOKEN || TOKEN === 'CHANGE_ME') {
-  console.error('Set a strong TUNNEL_TOKEN in .env.tunnel');
+// --- Unified Auth Key ---
+const PRIME_TUNNEL_KEY = process.env.PRIME_TUNNEL_KEY || process.env.TUNNEL_TOKEN || '';
+
+if (!PRIME_TUNNEL_KEY || PRIME_TUNNEL_KEY === 'CHANGE_ME') {
+  console.error('❌ Set a strong TUNNEL_TOKEN or PRIME_TUNNEL_KEY in .env.tunnel');
   process.exit(1);
 }
 
+// --- Helpers ---
 function json(res, code, body) {
   res.writeHead(code, {
     'content-type': 'application/json; charset=utf-8',
@@ -41,10 +48,15 @@ function json(res, code, body) {
   res.end(JSON.stringify(body, null, 2));
 }
 
-function authOk(req) {
-  const h = req.headers['authorization'] || '';
-  const token = String(h).startsWith('Bearer ') ? String(h).slice(7) : String(h);
-  return token === TOKEN;
+function validateAuth(req) {
+  // Accept both headers: `Authorization: Bearer <token>` or `X-Prime-Key: <token>`
+  const bearer = req.headers['authorization'] || '';
+  const headerKey = req.headers['x-prime-key'] || '';
+  const extracted =
+    String(bearer).startsWith('Bearer ')
+      ? String(bearer).slice(7)
+      : String(bearer || headerKey);
+  return extracted === PRIME_TUNNEL_KEY;
 }
 
 function jail(relPath) {
@@ -141,12 +153,13 @@ async function readBody(req) {
   });
 }
 
+// --- HTTP Server ---
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const method = req.method || 'GET';
 
-    // Auth-free health for easy testing
+    // Auth-free health for monitoring
     if (method === 'GET' && url.pathname === '/health') {
       return json(res, 200, {
         ok: true,
@@ -156,11 +169,13 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
-    if (!authOk(req)) return json(res, 401, { ok: false, error: 'Unauthorized' });
+    // All other routes require auth
+    if (!validateAuth(req)) {
+      return json(res, 401, { ok: false, error: 'Unauthorized' });
+    }
 
     if (method === 'GET' && url.pathname === '/git/status') {
       const r = await run('/usr/bin/git', ['status', '--porcelain=v1', '-b'], REPO_ROOT);
-
       return json(res, 200, r);
     }
 
@@ -205,8 +220,9 @@ const server = http.createServer(async (req, res) => {
       const cwdAbs = jail(cwdRel);
 
       const ALLOWED = new Set(['git', 'node', 'npm', 'pnpm', 'npx']);
-      if (!ALLOWED.has(cmd))
+      if (!ALLOWED.has(cmd)) {
         return json(res, 400, { ok: false, error: `Command not allowed: ${cmd}` });
+      }
 
       const r = await run(cmd, args, cwdAbs);
       return json(res, 200, { ...r, cmd, args, cwdRel });
@@ -219,5 +235,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, '127.0.0.1', () => {
-  console.log(`Prime Tunnel API listening on http://127.0.0.1:${PORT}`);
+  console.log(`🛰 Prime Tunnel API listening on http://127.0.0.1:${PORT}`);
 });
