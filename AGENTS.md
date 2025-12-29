@@ -1,22 +1,35 @@
-# AGENTS – ebay-api-fortress / Prime‑eBay CLI
+# Repository Guidelines
 
-1. **Install & env**: `npm install`; copy `.env.example` → `.env` (never commit).
-2. **Run CLI**: `node index.js` (also exposed as bin `prime-ebay`).
-3. **Lint all**: `npm run lint`; **autofix**: `npm run lint:fix`.
-4. **Format**: `npm run format` (check) / `npm run format:fix` (write).
-5. **Test all**: `npm test` or `npm run test` (Vitest).
-6. **Watch tests**: `npm run test:watch`.
-7. **Single file test**: `npx vitest run tests/cli.smoke.test.js`.
-8. **Single test case**: `npx vitest run tests/cli.smoke.test.js -t "starts and exits cleanly"`.
-9. **Node / modules**: Node >=20, ESM (`"type": "module"`); use `import` / `export` only.
-10. **Imports**: Group as [node builtins (`node:path`)], external deps, then local files; prefer named exports.
-11. **Formatting**: Prettier enforced – 2 spaces, 100 col width, single quotes, semicolons, trailing commas.
-12. **Types & naming**: JS only; functions/vars camelCase (`getRuntimeEnv`, `runCli`); files kebab-or-lowerCamel; constants UPPER_SNAKE.
-13. **Lint rules**: ESLint recommended; no unused vars/args (prefix intentionally unused with `_`); `console` allowed in CLI/logging only.
-14. **Error handling**: CLI entrypoints wrap `main()` in `try/catch`, log friendly message, dump full error only when `DEBUG` truthy, then `process.exit(1)`.
-15. **Env handling**: Load config via `getRuntimeEnv` / `getEbayEnv` from `ebay-api-fortress/src/config/env.js`; do **not** call `dotenv` directly elsewhere.
-16. **Tests style**: Vitest BDD (`describe`/`it`/`expect`), async tests `await` promises; prefer small smoke/integration tests that exercise the CLI via `node` child processes.
-17. **Side effects**: Keep modules side-effect free except CLI entry (`index.js`, future command files); expose core logic as reusable functions.
-18. **Security**: Never log secrets or commit `.env`; treat `EBAY_*` vars as sensitive; rotate if leaked.
-19. **Specification**: For new work, align with `.specify` templates (constitution, plan, spec, tasks) before coding.
-20. **Meta**: No Cursor/Copilot rules present; this file + `ebay-api-fortress/README.md` are the source of truth for agents.
+## Project Structure & Module Organization
+- `index.js` is the CLI entrypoint (also exposed as `prime-ebay`).
+- `src/` holds core logic: `src/cli.js` for CLI wiring, `src/lib/` for reusable modules, `src/config/` for environment handling, and `src/routes/` for server routes.
+- `tests/` contains Vitest suites (CLI smoke, auth, margin). Name tests `*.test.js`.
+- `docs/` and `prompts/` store reference docs and planning prompts; `types/` holds shared type declarations; `tunnel/` contains OpenAPI and server assets.
+- `dist/` is the build output (generated).
+
+## Build, Test, and Development Commands
+- `npm start` or `node index.js`: run the CLI locally.
+- `npm run build`: compile TypeScript (`tsc`).
+- `npm test`: run Vitest in CI mode.
+- `npm run test:watch`: watch mode for local iteration.
+- `npm run lint` / `npm run lint:fix`: ESLint checks and autofix.
+- `npm run format` / `npm run format:fix`: Prettier check/write.
+- `npm run check`: run lint + tests.
+
+## Coding Style & Naming Conventions
+- Node >=20, ESM-only (`type: module`); use `import`/`export`.
+- Prettier enforces 2-space indentation, 100-column width, single quotes, trailing commas, semicolons.
+- Favor `camelCase` for variables/functions, `UPPER_SNAKE` for constants. Keep file names lowercase or kebab-case.
+
+## Testing Guidelines
+- Framework: Vitest with `describe`/`it`/`expect`.
+- Prefer integration-style CLI tests using child processes when relevant.
+- Run a focused test: `npx vitest run tests/cli.smoke.test.js`.
+
+## Commit & Pull Request Guidelines
+- Commit history favors short, lowercase, imperative messages (e.g., `sync`, `cleanup review`). Keep messages concise and specific.
+- PRs should include: a brief summary, rationale, how to run tests, and any behavior changes. Add screenshots only for CLI output changes.
+
+## Security & Configuration Tips
+- Copy `.env.example` to `.env` and never commit secrets.
+- Treat all `EBAY_*` values as sensitive and avoid logging them.
