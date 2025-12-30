@@ -1,20 +1,17 @@
 // ebay-api-fortress/src/cli.js
 // Profit: Creates a stable CLI shell that can host multiple money-making commands without rewrites.
-import readline from 'readline';
+import fs from 'node:fs';
 import { getRuntimeEnv } from './config/env.js';
+
+function println(line) {
+  fs.writeSync(1, `${line}\n`);
+}
 
 export async function run() {
   const { nodeEnv } = getRuntimeEnv();
 
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  console.log('Prime-eBay CLI · foundation online');
-  console.log(`Environment: ${nodeEnv}`);
-  console.log('No live eBay API calls are implemented yet.');
-  console.log('All future automations will start in SANDBOX and support dry-run mode.');
-
-  rl.close();
+  println('Prime-eBay CLI · foundation online');
+  println(`Environment: ${nodeEnv}`);
+  println('No live eBay API calls are implemented yet.');
+  println('All future automations will start in SANDBOX and support dry-run mode.');
 }

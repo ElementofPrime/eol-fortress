@@ -16,7 +16,7 @@ await app.register(gitRoutes);
 
 // Start listener
 app
-  .listen({ port: 8787, host: '127.0.0.1' })
+  .listen({ port: Number(process.env.FORTRESS_API_PORT || 8788), host: '127.0.0.1' })
   .then((addr) => console.log(`✅ Fortress API online at ${addr}`))
   .catch((err) => {
     console.error(err);

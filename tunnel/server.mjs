@@ -6,7 +6,7 @@ import http from 'node:http';
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { URL } from 'node:url';
+import { URL, fileURLToPath } from 'node:url';
 
 // --- Load environment ---
 function loadEnvFile(p) {
@@ -26,7 +26,10 @@ loadEnvFile(path.resolve(process.cwd(), '.env.tunnel'));
 
 // --- Core Config ---
 const PORT = Number(process.env.TUNNEL_PORT || 8787);
-const REPO_ROOT = path.resolve(process.env.REPO_ROOT || '/mnt/d/Dev/ebay-api-fortress');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DEFAULT_REPO_ROOT = path.resolve(__dirname, '..');
+const REPO_ROOT = path.resolve(process.env.REPO_ROOT || DEFAULT_REPO_ROOT);
 const ALLOW_EXEC = String(process.env.ALLOW_EXEC || '0') === '1';
 const EXEC_TIMEOUT_MS = Number(process.env.EXEC_TIMEOUT_MS || 40000);
 const MAX_OUTPUT_CHARS = Number(process.env.MAX_OUTPUT_CHARS || 50000);
@@ -61,7 +64,8 @@ function validateAuth(req) {
 
 function jail(relPath) {
   const abs = path.resolve(REPO_ROOT, relPath);
-  if (!abs.startsWith(REPO_ROOT)) throw new Error('Path escapes repo root');
+  const rel = path.relative(REPO_ROOT, abs);
+  if (rel.startsWith('..') || path.isAbsolute(rel)) throw new Error('Path escapes repo root');
   return abs;
 }
 

@@ -28,7 +28,15 @@
     "webfetch": "allow",
   },
 
-  "instructions": ["AGENTS.md", "CONTRIBUTING.md", ".github/**/*.md", "README.md"],
+  "instructions": [
+    "docs/prime-continuity.md",
+    ".specify/memory/constitution.md",
+    "docs/agent-handbook.md",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    ".github/**/*.md",
+    "README.md"
+  ],
 
   "tui": {
     "scroll_speed": 3,
@@ -54,6 +62,25 @@
 
   // 🚀 Terminal Prime — main architect / strategist
   "agent": {
+    // 🧭 Element of Prime — continuity + alignment steward
+    "element-of-prime": {
+      "description": "Element of Prime — continuity keeper and cross-agent alignment (Prime ↔ Tunnel ↔ Spec Kit).",
+      "mode": "primary",
+      "model": "openai/gpt-5.2",
+      "temperature": 0.2,
+      "prompt": "{file:./prompts/element-of-prime.txt}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "patch": true,
+        "bash": true,
+        "read": true,
+        "glob": true,
+        "grep": true,
+        "list": true,
+        "webfetch": true,
+      },
+    },
     "prime": {
       "description": "Prime — Jeremy’s main EOL architect & strategist (Terminal Prime).",
       "mode": "primary",

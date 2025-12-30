@@ -1,7 +1,3 @@
-# Prime Tunnel
-.tunnel/
-.env.tunnel
-
 # === ENVIRONMENT ===
 .env*
 !.env.example
@@ -60,4 +56,3 @@ coverage/
 # Prime Tunnel
 .tunnel/
 .env.tunnel
-

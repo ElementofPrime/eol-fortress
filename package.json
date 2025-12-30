@@ -9,9 +9,10 @@
   },
   "scripts": {
     "start": "node index.js",
-    "api": "ts-node src/server.ts",
     "build": "tsc",
-    "dev": "nodemon index.ts",
+    "dev": "node --watch index.js",
+    "api": "node src/routes/server.js",
+    "tunnel": "node tunnel/server.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest run",

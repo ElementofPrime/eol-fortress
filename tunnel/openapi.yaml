@@ -4,7 +4,13 @@ info:
   version: 0.2.0
   description: Secure tunnel API to read repo status/logs/files and (optionally) run allowlisted commands.
 servers:
-  - url: https://origin-checked-shuttle-genuine.trycloudflare.com
+  - url: http://127.0.0.1:8787
+    description: Local Prime Tunnel server
+  - url: https://{tunnelHost}
+    description: Cloudflare tunnel (set to the latest printed host)
+    variables:
+      tunnelHost:
+        default: CHANGE_ME.trycloudflare.com
 
 components:
   securitySchemes:
