@@ -8,6 +8,7 @@ This repo uses multiple OpenCode agents. Use this doc to pick the right agent, k
 2. `docs/prime-continuity.md` (shared memory + current build state)
 3. `docs/agent-handbook.md` (this file: roles + coordination)
 4. `AGENTS.md` (contributor workflow + code style)
+5. `docs/decisions.md` (durable choices / guardrails)
 
 ## Core Roles
 
@@ -41,3 +42,4 @@ This repo uses multiple OpenCode agents. Use this doc to pick the right agent, k
 - Config lives in `opencode.jsonc` under `mcp.brightData`.
 - Requires an `API_TOKEN` in your environment for `@brightdata/mcp`.
 - If network is restricted in your runtime, you may need to run OpenCode with network enabled for web search/crawling.
+- Details: `docs/mcp-brightdata.md`.

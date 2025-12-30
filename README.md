@@ -2,6 +2,13 @@
 
 EOL-fueled eBay fortress: Node CLI for silent automation—bulk listings, vendor syncs, margin moats. Reclaim legacy glow, $2K Cyber wins.
 
+## Sources of Truth (Read Order)
+
+1. `.specify/memory/constitution.md` — governance, safety, and quality gates.
+2. `docs/prime-continuity.md` — canonical shared memory (“where are we right now?”).
+3. `docs/agent-handbook.md` — which agent to use, coordination rules, tunnel notes.
+4. `AGENTS.md` — contributor workflow, commands, and style conventions.
+
 ## Core Oath
 
 1. **Silence & Kindness**: Masked calls, empathize returns ("Bubble blues? Evidence relights").
@@ -17,6 +24,7 @@ EOL-fueled eBay fortress: Node CLI for silent automation—bulk listings, vendor
 | Setup | `cd ebay-api-fortress && npm i`  | Installs CLI + test/lint tooling.             |
 | Keys  | `cp .env.example .env` → edit it | Wire sandbox eBay keys locally (never commit) |
 | Run   | `node index.js`                  | Boots Prime-eBay CLI foundation (no API yet). |
+| Tunnel | `npm run tunnel`                | Starts the authenticated Prime Tunnel API.    |
 
 ## Env Vars
 
@@ -29,11 +37,17 @@ EOL-fueled eBay fortress: Node CLI for silent automation—bulk listings, vendor
 ## Run & Scale (today)
 
 ```bash
-node index.js           # Prime-eBay CLI · foundation online
-npm test                # Vitest tests (CLI, auth, margin)
-npm run lint            # ESLint
-npm run check           # Lint + tests gate
+npm start               # Prime-eBay CLI · foundation online
+npm run dev             # Watch mode for CLI iteration
+npm run tunnel          # Prime Tunnel API (see tunnel/openapi.yaml)
+npm run api             # Fastify experiment API (defaults to 127.0.0.1:8788)
+npm run check           # ESLint + Vitest gate
 ```
 
 Future commands (bulk listing, pricing pulses, vendor syncs) will be added via Spec Kit specs
 and wired into the CLI as separate commands (Fortress Tree pattern).
+
+## Web Access (Bright Data MCP)
+
+`opencode.jsonc` is pre-wired with a Bright Data MCP (`mcp.brightData`). Provide `API_TOKEN`
+in the environment where OpenCode runs to enable agents to use web access when permitted.

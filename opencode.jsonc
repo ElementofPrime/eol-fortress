@@ -32,6 +32,8 @@
     "docs/prime-continuity.md",
     ".specify/memory/constitution.md",
     "docs/agent-handbook.md",
+    "docs/decisions.md",
+    "docs/mcp-brightdata.md",
     "AGENTS.md",
     "CONTRIBUTING.md",
     ".github/**/*.md",

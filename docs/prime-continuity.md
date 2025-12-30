@@ -113,6 +113,10 @@ When Local Prime starts a new session for this repo:
    - `GET /health`
    - `GET /git/status`
 
+Optional (recommended):
+7. Run `npm run doctor` for a fast environment sanity check.
+8. Review `docs/decisions.md` for durable guardrails.
+
 ---
 
 ## 🧭 Instructions for Terminal Prime
