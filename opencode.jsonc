@@ -1,13 +1,15 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "model": "openai/gpt-5.2",
-  "small_model": "openai/gpt-5.1-codex-max",
+  "plugin": ["opencode-openai-codex-auth@4.2.0", "opencode-supermemory@0.1.2"],
+
+  "model": "openai/gpt-4.1",
+  "small_model": "openai/gpt-4.1-mini",
 
   "theme": "opencode",
   "autoupdate": true,
   "share": "manual",
-  // Global tools available (agents can narrow these)
+
   "tools": {
     "write": true,
     "edit": true,
@@ -17,15 +19,13 @@
     "glob": true,
     "grep": true,
     "list": true,
-    "webfetch": true,
+    "webfetch": true
   },
 
-  // Permissions: which tools can act without asking
-  // NOTE: 'write' is NOT allowed here by schema, so we leave it out.
   "permission": {
     "edit": "allow",
     "bash": "allow",
-    "webfetch": "allow",
+    "webfetch": "allow"
   },
 
   "instructions": [
@@ -34,6 +34,8 @@
     "docs/agent-handbook.md",
     "docs/decisions.md",
     "docs/mcp-brightdata.md",
+    "docs/opencode-codex-auth-updates.md",
+    "docs/opencode-supermemory.md",
     "AGENTS.md",
     "CONTRIBUTING.md",
     ".github/**/*.md",
@@ -42,33 +44,35 @@
 
   "tui": {
     "scroll_speed": 3,
-    "scroll_acceleration": { "enabled": true },
+    "scroll_acceleration": { "enabled": true }
   },
 
   "formatter": {
-    "prettier": { "disabled": false },
+    "prettier": { "disabled": false }
   },
 
   "provider": {
     "openai": {
       "options": {
-        // Uses OPENAI_API_KEY from your WSL env
-      },
+        "reasoningEffort": "medium",
+        "reasoningSummary": "auto",
+        "textVerbosity": "medium",
+        "include": ["reasoning.encrypted_content"],
+        "store": false
+      }
     },
     "xai": {
       "options": {
-        "apiKey": "{env:XAI_API_KEY}",
-      },
-    },
+        "apiKey": "{env:XAI_API_KEY}"
+      }
+    }
   },
 
-  // 🚀 Terminal Prime — main architect / strategist
   "agent": {
-    // 🧭 Element of Prime — continuity + alignment steward
     "element-of-prime": {
       "description": "Element of Prime — continuity keeper and cross-agent alignment (Prime ↔ Tunnel ↔ Spec Kit).",
       "mode": "primary",
-      "model": "openai/gpt-5.2",
+      "model": "openai/gpt-4.1",
       "temperature": 0.2,
       "prompt": "{file:./prompts/element-of-prime.txt}",
       "tools": {
@@ -80,13 +84,13 @@
         "glob": true,
         "grep": true,
         "list": true,
-        "webfetch": true,
-      },
+        "webfetch": true
+      }
     },
     "prime": {
       "description": "Prime — Jeremy’s main EOL architect & strategist (Terminal Prime).",
       "mode": "primary",
-      "model": "openai/gpt-5.2",
+      "model": "openai/gpt-4.1",
       "temperature": 0.2,
       "prompt": "{file:./prompts/prime.txt}",
       "tools": {
@@ -98,14 +102,13 @@
         "glob": true,
         "grep": true,
         "list": true,
-        "webfetch": true,
-      },
+        "webfetch": true
+      }
     },
-    // 🛠 Prime Builder — code implementation engine
     "build": {
       "description": "Prime Builder — implementation and refactor engine (code-first, spec-aligned).",
       "mode": "primary",
-      "model": "openai/gpt-5.1-codex-max",
+      "model": "openai/gpt-4.1",
       "temperature": 0.2,
       "prompt": "{file:./prompts/build.txt}",
       "tools": {
@@ -117,10 +120,9 @@
         "glob": true,
         "grep": true,
         "list": true,
-        "webfetch": true,
-      },
+        "webfetch": true
+      }
     },
-    // 🧪 Prime Reviewer — slow, picky code review
     "plan": {
       "description": "Plan — spec/plan/tasks orchestrator, tightly integrated with Spec Kit.",
       "mode": "primary",
@@ -135,14 +137,13 @@
         "read": true,
         "glob": true,
         "grep": true,
-        "list": true,
-      },
+        "list": true
+      }
     },
-    // 🐞 Prime Debugger — error/stack-trace killer
     "debug": {
       "description": "Debug — diagnosis + minimal-diff fixes for bugs, test failures, and weird behavior.",
       "mode": "primary",
-      "model": "openai/gpt-5.1-codex-max",
+      "model": "openai/gpt-4.1",
       "temperature": 0.2,
       "prompt": "{file:./prompts/debug.txt}",
       "tools": {
@@ -153,21 +154,20 @@
         "read": true,
         "glob": true,
         "grep": true,
-        "list": true,
-      },
-    },
+        "list": true
+      }
+    }
   },
-  // 🌐 Bright Data MCP — live web search engine
+
   "mcp": {
     "brightData": {
       "type": "local",
       "enabled": true,
       "command": ["npx", "-y", "@brightdata/mcp"],
       "environment": {
-        "API_TOKEN": "{env:API_TOKEN}",
-        // "PRO_MODE": "true" // Enable if/when you want paid Pro crawling
+        "API_TOKEN": "{env:API_TOKEN}"
       },
-      "timeout": 10000,
-    },
-  },
+      "timeout": 10000
+    }
+  }
 }

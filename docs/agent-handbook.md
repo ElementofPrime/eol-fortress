@@ -43,3 +43,8 @@ This repo uses multiple OpenCode agents. Use this doc to pick the right agent, k
 - Requires an `API_TOKEN` in your environment for `@brightdata/mcp`.
 - If network is restricted in your runtime, you may need to run OpenCode with network enabled for web search/crawling.
 - Details: `docs/mcp-brightdata.md`.
+
+## OpenCode Plugins (Updates)
+
+- Codex OAuth plugin update workflow: `docs/opencode-codex-auth-updates.md`.
+- Supermemory plugin setup: `docs/opencode-supermemory.md`.
