@@ -8,7 +8,7 @@
 
 - **Project Codename:** EOL Fortress
 - **Repository:** ebay-api-fortress
-- **Root Path (WSL):** `/fortress/ebay-api-fortress` (or your local clone path)
+- **Root Path (local):** your local clone path (examples: `/fortress/ebay-api-fortress`, `/mnt/d/Dev/ebay-api-fortress`)
 - **Primary Entry (CLI):** `node index.js`
 - **Integration Gateway (Tunnel):** `npm run tunnel` (`node tunnel/server.mjs`)
 - **Runtime:** Node 20+, ES modules (JS-only)
@@ -32,14 +32,14 @@
 
 > Exact model IDs live in `opencode.jsonc`. Roles below stay stable even if models change.
 
-| Agent                | Role                   | Scope                                               |
-| -------------------- | ---------------------- | --------------------------------------------------- |
-| **Terminal Prime**   | Execution engine       | Direct repo control via OpenCode and the tunnel     |
-| **Local Prime**      | Architect / conductor  | Orchestrates flows, coordinates with Terminal Prime |
-| **Element of Prime** | Continuity steward     | Keeps shared memory + agent instructions aligned    |
-| **Build Agent**      | Implementation         | Generates and modifies code (spec-aligned)          |
-| **Debug Agent**      | Diagnostics            | Fixes tests, errors, regressions                    |
-| **Plan Agent**       | Strategic planner      | Specs, plans, tasks using Spec Kit                  |
+| Agent                | Role                  | Scope                                               |
+| -------------------- | --------------------- | --------------------------------------------------- |
+| **Terminal Prime**   | Execution engine      | Direct repo control via OpenCode and the tunnel     |
+| **Local Prime**      | Architect / conductor | Human role; orchestrates and directs Terminal Prime |
+| **Element of Prime** | Continuity steward    | Keeps shared memory + agent instructions aligned    |
+| **Build Agent**      | Implementation        | Generates and modifies code (spec-aligned)          |
+| **Debug Agent**      | Diagnostics           | Fixes tests, errors, regressions                    |
+| **Plan Agent**       | Strategic planner     | Specs, plans, tasks using Spec Kit                  |
 
 ---
 
@@ -104,8 +104,8 @@ git push
 
 When Local Prime starts a new session for this repo:
 
-1. Read: `docs/prime-continuity.md` (this file).
-2. Read: `.specify/memory/constitution.md` (EOL Constitution).
+1. Read: `.specify/memory/constitution.md` (EOL Constitution).
+2. Read: `docs/prime-continuity.md` (this file).
 3. Read: `docs/agent-handbook.md` (agent roles + coordination rules).
 4. Read: `AGENTS.md` (ops + code rules).
 5. Optionally read: `opencode.jsonc` and `README.md` for agent wiring and current surface.
@@ -113,9 +113,7 @@ When Local Prime starts a new session for this repo:
    - `GET /health`
    - `GET /git/status`
 
-Optional (recommended):
-7. Run `npm run doctor` for a fast environment sanity check.
-8. Review `docs/decisions.md` for durable guardrails.
+Optional (recommended): 7. Run `npm run doctor` for a fast environment sanity check. 8. Review `docs/decisions.md` for durable guardrails.
 
 ---
 

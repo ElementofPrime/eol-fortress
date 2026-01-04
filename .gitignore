@@ -53,6 +53,10 @@ coverage/
 # === LOCAL DEV OVERRIDES (optional but safe) ===
 *.local.env
 
+# === OPENCODE / AGENT RUNTIME ===
+.opencode/
+.sisyphus/
+
 # Prime Tunnel
 .tunnel/
 .env.tunnel

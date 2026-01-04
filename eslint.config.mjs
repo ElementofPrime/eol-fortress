@@ -3,6 +3,18 @@
 import js from '@eslint/js';
 
 export default [
+  {
+    ignores: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '.opencode/**',
+      '**/.opencode/**',
+      '.sisyphus/**',
+      '**/.sisyphus/**',
+      '.tunnel/**',
+      '**/.tunnel/**',
+    ],
+  },
   js.configs.recommended,
   {
     languageOptions: {

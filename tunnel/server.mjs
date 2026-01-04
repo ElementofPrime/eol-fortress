@@ -55,10 +55,9 @@ function validateAuth(req) {
   // Accept both headers: `Authorization: Bearer <token>` or `X-Prime-Key: <token>`
   const bearer = req.headers['authorization'] || '';
   const headerKey = req.headers['x-prime-key'] || '';
-  const extracted =
-    String(bearer).startsWith('Bearer ')
-      ? String(bearer).slice(7)
-      : String(bearer || headerKey);
+  const extracted = String(bearer).startsWith('Bearer ')
+    ? String(bearer).slice(7)
+    : String(bearer || headerKey);
   return extracted === PRIME_TUNNEL_KEY;
 }
 

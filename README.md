@@ -19,12 +19,12 @@ EOL-fueled eBay fortress: Node CLI for silent automation—bulk listings, vendor
 
 ## Quickstart
 
-| Step  | Command/Action                   | Edge                                          |
-| ----- | -------------------------------- | --------------------------------------------- |
-| Setup | `cd ebay-api-fortress && npm i`  | Installs CLI + test/lint tooling.             |
-| Keys  | `cp .env.example .env` → edit it | Wire sandbox eBay keys locally (never commit) |
-| Run   | `node index.js`                  | Boots Prime-eBay CLI foundation (no API yet). |
-| Tunnel | `npm run tunnel`                | Starts the authenticated Prime Tunnel API.    |
+| Step   | Command/Action                   | Edge                                          |
+| ------ | -------------------------------- | --------------------------------------------- |
+| Setup  | `cd ebay-api-fortress && npm i`  | Installs CLI + test/lint tooling.             |
+| Keys   | `cp .env.example .env` → edit it | Wire sandbox eBay keys locally (never commit) |
+| Run    | `node index.js`                  | Boots Prime-eBay CLI foundation (no API yet). |
+| Tunnel | `npm run tunnel`                 | Starts the authenticated Prime Tunnel API.    |
 
 ## Env Vars
 

@@ -5,13 +5,15 @@ This directory contains utility scripts for eBay API Fortress maintenance and Op
 ## Available Scripts
 
 ### `doctor.mjs`
+
 Repository health check script that validates the development environment.
 
 **Purpose**: Ensures all required files, Node.js version, and dependencies are present for development.
 
 **Usage**: `npm run doctor`
 
-**Behavior**: 
+**Behavior**:
+
 - Checks Node.js >= 20 compatibility
 - Verifies presence of `package.json`, `.env.example`, and environment files
 - Validates tunnel server files and templates
@@ -23,14 +25,17 @@ Repository health check script that validates the development environment.
 Both `opencode-codex-auth.mjs` and `opencode-supermemory.mjs` provide similar plugin management workflows:
 
 #### `opencode-codex-auth.mjs`
+
 Manages the `opencode-openai-codex-auth` plugin for OpenAI authentication integration.
 
-#### `opencode-supermemory.mjs`  
+#### `opencode-supermemory.mjs`
+
 Manages the `opencode-supermemory` plugin for knowledge base integration.
 
 ### Common Operations
 
 #### `check`
+
 Compares locally pinned plugin version against upstream repository.
 
 ```bash
@@ -39,15 +44,18 @@ npm run opencode:supermemory:check
 ```
 
 #### `update`
+
 Updates plugin version pin in local configuration.
 
 **⚠️ Important**: Always run dry-run first to preview changes:
+
 ```bash
 npm run opencode:codex-auth:update:dry
 npm run opencode:supermemory:update:dry
 ```
 
 Apply changes with `--write` flag:
+
 ```bash
 npm run opencode:codex-auth:update
 npm run opencode:supermemory:update
@@ -56,6 +64,7 @@ npm run opencode:supermemory:update
 **Note**: `update --write` overwrites `opencode.jsonc`. Review dry-run output before applying.
 
 #### `refresh-cache`
+
 Clears plugin installation cache for fresh reinstall.
 
 ```bash

@@ -13,10 +13,11 @@ This repo uses multiple OpenCode agents. Use this doc to pick the right agent, k
 ## Core Roles
 
 - **Terminal Prime (`prime`)**: execution lead. Runs commands, integrates work, enforces gates, and coordinates tunnel operations.
+- **Local Prime (human role)**: architect/conductor outside OpenCode; directs Prime and other agents.
 - **Element of Prime (`element-of-prime`)**: continuity steward. Reconciles conflicts, updates `docs/prime-continuity.md`, and keeps agent instructions aligned.
 - **Builder (`build`)**: implementation engine. Converts approved specs/plans into minimal diffs with tests.
 - **Debugger (`debug`)**: repair engine. Fixes failing tests, regressions, or behavior mismatches with minimal change.
-- **Planner (`plan`)**: spec/plan/tasks strategist. Produces Spec Kit artifacts aligned with the Constitution.
+- **Planner (`plan`)**: spec/plan/tasks strategist. Produces Spec Kit artifacts aligned with the Constitution (read-only; outputs plans/specs for others to write).
 
 ## When to Use Which Agent
 

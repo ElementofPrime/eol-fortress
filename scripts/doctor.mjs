@@ -19,7 +19,9 @@ function status(ok, message) {
 let ok = true;
 
 const nodeMajor = parseMajor(process.versions.node);
-ok = status(nodeMajor !== null && nodeMajor >= 20, `Node >=20 (current: ${process.versions.node})`) && ok;
+ok =
+  status(nodeMajor !== null && nodeMajor >= 20, `Node >=20 (current: ${process.versions.node})`) &&
+  ok;
 
 ok = status(exists('package.json'), 'package.json present') && ok;
 ok = status(exists('.env.example'), '.env.example present') && ok;
@@ -30,7 +32,9 @@ ok =
   ) && ok;
 
 ok = status(exists('tunnel/server.mjs'), 'Tunnel server present (tunnel/server.mjs)') && ok;
-ok = status(exists('.env.tunnel') || exists('.env.tunnel.example'), 'Tunnel env template present') && ok;
+ok =
+  status(exists('.env.tunnel') || exists('.env.tunnel.example'), 'Tunnel env template present') &&
+  ok;
 
 process.stdout.write('\nPorts (defaults)\n');
 process.stdout.write('- CLI: uses stdio only\n');
@@ -42,4 +46,3 @@ process.stdout.write('- npm run check\n');
 process.stdout.write('- npm run tunnel\n');
 
 if (!ok) process.exit(1);
-
