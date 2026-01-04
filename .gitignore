@@ -54,7 +54,9 @@ coverage/
 *.local.env
 
 # === OPENCODE / AGENT RUNTIME ===
-.opencode/
+.opencode/*
+!.opencode/oh-my-opencode.json
+!.opencode/oh-my-opencode.jsonc
 .sisyphus/
 
 # Prime Tunnel

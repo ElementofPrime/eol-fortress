@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "claude_code": {
+    "hooks": true,
+    "agents": true
+  },
+  "agents": {
+    "Sisyphus": {
+      "description": "Project orchestrator (Spec Kit + Tunnel aware)",
+      "temperature": 0.2,
+      "prompt_append": "\n\nPROJECT CONTEXT (ebay-api-fortress)\n- Sources of truth (read order): `.specify/memory/constitution.md` → `docs/prime-continuity.md` → `docs/agent-handbook.md` → `AGENTS.md` → `docs/decisions.md`.\n- Spec Kit workspace: `.specify/` (templates + scripts).\n  - Create feature: `.specify/scripts/bash/create-new-feature.sh`\n  - Setup plan: `.specify/scripts/bash/setup-plan.sh`\n  - Update agent context: `.specify/scripts/bash/update-agent-context.sh`\n- Tunnel implementation: `tunnel/server.mjs` and API contract `tunnel/openapi.yaml`.\n  - Local URL: `http://127.0.0.1:8787`\n  - Remote URL: `https://{tunnelHost}` (Cloudflare host changes per run; use latest printed).\n  - Auth: `Authorization: Bearer <TOKEN>` or `X-Prime-Key: <TOKEN>`, where token is `PRIME_TUNNEL_KEY` or `TUNNEL_TOKEN` from local-only `.env.tunnel`.\n\nWORKFLOW CONTRACT\n- New behavior work: Spec Kit first (spec → plan → tasks) before significant code changes.\n- Keep diffs small and focused; run `npm run check` before declaring done.\n- Never leak secrets: treat `.env`, `.env.tunnel`, any `EBAY_*`, and tunnel tokens as sensitive.\n- If outside-browser review/coordination is needed: require the caller to provide the current Cloudflare tunnel host and confirm auth is set; do not request token values in plain text.\n"
+    },
+    "explore": {
+      "temperature": 0.2
+    },
+    "librarian": {
+      "temperature": 0.2
+    }
+  }
+}
