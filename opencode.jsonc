@@ -1,15 +1,14 @@
 {
   "$schema": "https://opencode.ai/config.json",
-
-  "plugin": ["opencode-openai-codex-auth@4.2.0", "opencode-supermemory@0.1.2"],
-
-  "model": "openai/gpt-4.1",
-  "small_model": "openai/gpt-4.1-mini",
-
+  "plugin": [
+    "opencode-openai-codex-auth@4.2.0",
+    "opencode-supermemory@0.1.2"
+  ],
+  "model": "openai/gpt-5.1",
+  "small_model": "openai/gpt-5.1-codex",
   "theme": "opencode",
   "autoupdate": true,
   "share": "manual",
-
   "tools": {
     "write": true,
     "edit": true,
@@ -21,13 +20,11 @@
     "list": true,
     "webfetch": true
   },
-
   "permission": {
     "edit": "allow",
     "bash": "allow",
     "webfetch": "allow"
   },
-
   "instructions": [
     "docs/prime-continuity.md",
     ".specify/memory/constitution.md",
@@ -41,23 +38,26 @@
     ".github/**/*.md",
     "README.md"
   ],
-
   "tui": {
     "scroll_speed": 3,
-    "scroll_acceleration": { "enabled": true }
+    "scroll_acceleration": {
+      "enabled": true
+    }
   },
-
   "formatter": {
-    "prettier": { "disabled": false }
+    "prettier": {
+      "disabled": false
+    }
   },
-
   "provider": {
     "openai": {
       "options": {
         "reasoningEffort": "medium",
         "reasoningSummary": "auto",
         "textVerbosity": "medium",
-        "include": ["reasoning.encrypted_content"],
+        "include": [
+          "reasoning.encrypted_content"
+        ],
         "store": false
       }
     },
@@ -67,12 +67,11 @@
       }
     }
   },
-
   "agent": {
     "element-of-prime": {
       "description": "Element of Prime — continuity keeper and cross-agent alignment (Prime ↔ Tunnel ↔ Spec Kit).",
       "mode": "primary",
-      "model": "openai/gpt-4.1",
+      "model": "openai/gpt-5.1",
       "temperature": 0.2,
       "prompt": "{file:./prompts/element-of-prime.txt}",
       "tools": {
@@ -90,7 +89,7 @@
     "prime": {
       "description": "Prime — Jeremy’s main EOL architect & strategist (Terminal Prime).",
       "mode": "primary",
-      "model": "openai/gpt-4.1",
+      "model": "openai/gpt-5.1",
       "temperature": 0.2,
       "prompt": "{file:./prompts/prime.txt}",
       "tools": {
@@ -108,7 +107,7 @@
     "build": {
       "description": "Prime Builder — implementation and refactor engine (code-first, spec-aligned).",
       "mode": "primary",
-      "model": "openai/gpt-4.1",
+      "model": "openai/gpt-5.1-codex",
       "temperature": 0.2,
       "prompt": "{file:./prompts/build.txt}",
       "tools": {
@@ -143,7 +142,7 @@
     "debug": {
       "description": "Debug — diagnosis + minimal-diff fixes for bugs, test failures, and weird behavior.",
       "mode": "primary",
-      "model": "openai/gpt-4.1",
+      "model": "openai/gpt-5.1-codex",
       "temperature": 0.2,
       "prompt": "{file:./prompts/debug.txt}",
       "tools": {
@@ -158,12 +157,15 @@
       }
     }
   },
-
   "mcp": {
     "brightData": {
       "type": "local",
       "enabled": true,
-      "command": ["npx", "-y", "@brightdata/mcp"],
+      "command": [
+        "npx",
+        "-y",
+        "@brightdata/mcp"
+      ],
       "environment": {
         "API_TOKEN": "{env:API_TOKEN}"
       },
