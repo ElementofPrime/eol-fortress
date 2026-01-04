@@ -6,6 +6,7 @@
 - `src/` holds core logic: `src/cli.js` for CLI wiring, `src/lib/` for reusable modules, `src/config/` for environment handling, and `src/routes/` for server routes.
 - `tests/` contains Vitest suites (CLI smoke, auth, margin). Name tests `*.test.js`.
 - `docs/` and `prompts/` store reference docs and planning prompts; `types/` holds shared type declarations; `tunnel/` contains OpenAPI and server assets.
+- Directory-scoped agent guidance lives in `src/AGENTS.md`, `tests/AGENTS.md`, `tunnel/AGENTS.md`, `scripts/AGENTS.md`, `.specify/AGENTS.md`, `docs/AGENTS.md`, `prompts/AGENTS.md`.
 - Shared agent memory and coordination live in `docs/prime-continuity.md` and `docs/agent-handbook.md`.
 - `dist/` is the build output (generated).
 
